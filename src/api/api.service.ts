@@ -52,7 +52,6 @@ export class ApiService {
 
     async deletePost(postId: string) {
         const deleted = this.postModel.deleteOne({ _id: postId });
-        console.log("DEBUG deleted ", deleted);
         return deleted;
     }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Delete } from '@nestjs/common';
 import { ApiService } from './api.service';
 
 @Controller('api')
@@ -23,5 +23,9 @@ export class ApiController {
     const { raw } = _body;
     return this.apiService.createPost(raw);
   }
-  
+
+  @Delete('deletePost')
+  async deletePost(@Query('postId') postId: string) {
+    return this.apiService.deletePost(postId);
+  }
 }
