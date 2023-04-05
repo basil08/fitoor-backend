@@ -1,7 +1,10 @@
 import { Body, Controller, Get, Post, Query, Delete } from '@nestjs/common';
 import { ApiService } from './api.service';
+import { UserAuthGuard } from 'src/auth/passport/user-auth.guard';
+import { UseGuards } from '@nestjs/common';
 
 @Controller('api')
+@UseGuards(UserAuthGuard)
 export class ApiController {
   constructor(private readonly apiService: ApiService) {}
 
