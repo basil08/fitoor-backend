@@ -1,4 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import mongoose from 'mongoose';
+import { User } from './user.schema';
 
 @Schema()
 export class Post {
@@ -13,6 +15,15 @@ export class Post {
 
   @Prop({ required: true })
   timestamp: Date;
+
+  @Prop({ required: false, default: false })
+  isPrivate: boolean;
+
+  @Prop({required: false, default: true })
+  commentsEnabled: boolean;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, required: true })
+  createdBy: User;
 }
 
 export type PostDocument = Post & Document;

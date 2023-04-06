@@ -19,6 +19,11 @@ export class AuthService {
     if (u) {
       if (u.email === email) return 1;
     }
+
+    if (u) {
+      if (u.username === username) return 2;
+    }
+    
     const hash = await bcrypt.hash(password, Number(CONFIG.BCRYPT_ROUNDS));
 
     const user = new this.userModel({

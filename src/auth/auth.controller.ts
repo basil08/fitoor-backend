@@ -23,6 +23,9 @@ export class AuthController {
     if (u === 1) {
       throw new BadRequestException('Email already exists');
     }
+    if (u === 2) {
+      throw new BadRequestException('Username already exists');
+    }
     return 'User sucessfully created';
   }
 
