@@ -26,7 +26,7 @@ export class AuthController {
     if (u === 2) {
       throw new BadRequestException('Username already exists');
     }
-    return 'User sucessfully created';
+    return {message: 'User sucessfully created'};
   }
 
   @UseGuards(UserLocalGuard)
