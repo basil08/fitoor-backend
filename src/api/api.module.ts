@@ -3,7 +3,7 @@ import { ApiService } from './api.service';
 import { ApiController } from './api.controller';
 import { Post, PostSchema } from '../schemas/post.schema';
 import { MongooseModule } from '@nestjs/mongoose';
-import { User, UserSchema } from 'src/schemas/user.schema';
+import { User, UserSchema } from '../schemas/user.schema';
 
 @Module({
   imports: [

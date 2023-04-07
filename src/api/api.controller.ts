@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Query, Delete, Req, BadRequestException } from '@nestjs/common';
 import { ApiService } from './api.service';
-import { UserAuthGuard } from 'src/auth/passport/user-auth.guard';
+import { UserAuthGuard } from '../auth/passport/user-auth.guard';
 import { UseGuards } from '@nestjs/common';
 
 @Controller('api')

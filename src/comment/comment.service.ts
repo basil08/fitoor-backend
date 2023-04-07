@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Comment, CommentDocument } from 'src/schemas/comment.schema';
+import { Comment, CommentDocument } from '../schemas/comment.schema';
 import { Model } from 'mongoose';
 import axios from 'axios';
-import { Post, PostDocument } from 'src/schemas/post.schema';
-import CONFIG from 'src/utils/config';
+import { Post, PostDocument } from '../schemas/post.schema';
+import CONFIG from '../utils/config';
 
 @Injectable()
 export class CommentService {
