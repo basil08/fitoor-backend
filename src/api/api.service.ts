@@ -19,12 +19,15 @@ export class ApiService {
         const title = raw.slice(0, headingIndex);
         const body = raw.slice(headingIndex + 1);
 
+        const commentsCount = commentsEnabled ? 0 : null;
+
         const newPostObject = new this.postModel({
             title: title,
             body: body,
             raw: raw,
             commentsEnabled: commentsEnabled,
             isPrivate: isPrivate,
+            commentsCount: commentsCount,
             timestamp: Date.now(),
             createdBy: createdBy
         });

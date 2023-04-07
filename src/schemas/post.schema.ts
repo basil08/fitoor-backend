@@ -22,6 +22,9 @@ export class Post {
   @Prop({required: false, default: true })
   commentsEnabled: boolean;
 
+  @Prop({ required: false, default: 0 })
+  commentsCount: number;
+
   @Prop({ type: mongoose.Schema.Types.ObjectId, required: true })
   createdBy: User;
 }
