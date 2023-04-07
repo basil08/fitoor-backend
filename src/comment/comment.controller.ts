@@ -1,4 +1,4 @@
-import { Post, Get, Res, Req, Body, Query } from '@nestjs/common';
+import { Post, Get, Res, Req, Body, Query, BadRequestException } from '@nestjs/common';
 import { Controller } from '@nestjs/common';
 import { CommentService } from './comment.service';
 
@@ -9,8 +9,13 @@ export class CommentController {
 
   @Post('create')
   async createComment(@Body() _body) {
-    const { email, text, nickname, isReply, parentCommentId, postId } = _body;
-    return this.commentService.createComment(text, email, nickname, isReply, parentCommentId, postId);
+    // console.log(_body);
+    const { email, text, nickname, isReply, parentCommentId, postId, captchaToken } = _body;
+    const val = await this.commentService.createComment(text, email, nickname, isReply, parentCommentId, postId, captchaToken);
+    if (val === -1 ){
+      throw new BadRequestException("Post has comments disabled. Cannot comment!");
+    }
+    return val;
   }
 
   @Get('get')
