@@ -8,10 +8,10 @@ import { User, UserDocument } from 'src/schemas/user.schema';
 export class ApiService {
     constructor(
         @InjectModel(Post.name)
-        private postModel: Model<PostDocument>,    
+        private postModel: Model<PostDocument>,
         @InjectModel(User.name)
-        private userModel: Model<UserDocument>,    
-    ) {}
+        private userModel: Model<UserDocument>,
+    ) { }
 
     async createPost(raw: string, commentsEnabled: boolean, isPrivate: boolean, createdBy: string) {
 
@@ -38,14 +38,14 @@ export class ApiService {
     async getPosts(userId: string, skip: number, limit: number) {
 
         const findAllQuery = this.postModel
-        .find({ createdBy: userId })
-        .sort({ timestamp: -1 })
-        .skip(skip);
+            .find({ createdBy: userId })
+            .sort({ timestamp: -1 })
+            .skip(skip);
 
         if (limit) {
             findAllQuery.limit(limit);
         }
-        
+
         const posts = await findAllQuery;
         const count = await this.postModel.count({ createdBy: userId });
 
@@ -64,6 +64,13 @@ export class ApiService {
         return deleted;
     }
 
+    async update(id: string, raw: any) {
+        const headingIndex = raw.indexOf('\n');
+        const title = raw.slice(0, headingIndex);
+        const body = raw.slice(headingIndex + 1);
+        return this.postModel.findByIdAndUpdate(id, {title: title, body: body, raw: raw});
+    }
+
     async getPublicPosts(username: string, skip: number, limit: number) {
 
         const userId = await this.userModel.findOne({ username: username }, { _id: 1 });
@@ -71,18 +78,18 @@ export class ApiService {
         if (!userId) {
             return 1;
         }
-        
+
         const findAllQuery = this.postModel
-        .find({ isPrivate: false, createdBy: userId })
-        .sort({ timestamp: -1 })
-        .skip(skip);
+            .find({ isPrivate: false, createdBy: userId })
+            .sort({ timestamp: -1 })
+            .skip(skip);
 
         if (limit) {
             findAllQuery.limit(limit);
         }
-        
+
         const posts = await findAllQuery;
-        const count = await this.postModel.count( { isPrivate: false, createdBy: userId });
+        const count = await this.postModel.count({ isPrivate: false, createdBy: userId });
 
         return { posts, count }
     }
@@ -94,7 +101,7 @@ export class ApiService {
             return 1;
         }
         const findOneQuery = this.postModel
-        .findOne({ isPrivate: false, createdBy: userId, _id: postId })
+            .findOne({ isPrivate: false, createdBy: userId, _id: postId })
         const post = await findOneQuery;
         return post;
     }
@@ -102,22 +109,22 @@ export class ApiService {
     async getPrivatePosts(username: string, skip: number, limit: number) {
 
         const userId = await this.userModel.findOne({ username: username }, { _id: 1 });
-        
+
         if (!userId) {
             return 1;
         }
-        
+
         const findAllQuery = this.postModel
-        .find({ isPrivate: true, createdBy: userId })
-        .sort({ timestamp: -1 })
-        .skip(skip);
+            .find({ isPrivate: true, createdBy: userId })
+            .sort({ timestamp: -1 })
+            .skip(skip);
 
         if (limit) {
             findAllQuery.limit(limit);
         }
-        
+
         const posts = await findAllQuery;
-        const count = await this.postModel.count( { isPrivate: true, createdBy: userId });
+        const count = await this.postModel.count({ isPrivate: true, createdBy: userId });
 
         return { posts, count }
     }

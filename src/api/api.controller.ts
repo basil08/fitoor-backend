@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query, Delete, Req, BadRequestException } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Param, Patch, Delete, Req, BadRequestException } from '@nestjs/common';
 import { ApiService } from './api.service';
 import { UserAuthGuard } from 'src/auth/passport/user-auth.guard';
 import { UseGuards } from '@nestjs/common';
@@ -53,6 +53,12 @@ export class ApiController {
       throw new BadRequestException(`No user with ${username} found!`);
     }
     return post;
+  }
+
+  @Patch('update/:id')
+  update(@Param('id') id: string, @Body() _body) {
+    const { postData } = _body;
+    return this.apiService.update(id, postData);
   }
 
   @Get('getPrivatePosts')
