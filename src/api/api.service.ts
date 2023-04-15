@@ -68,7 +68,7 @@ export class ApiService {
         const headingIndex = raw.indexOf('\n');
         const title = raw.slice(0, headingIndex);
         const body = raw.slice(headingIndex + 1);
-        return this.postModel.findByIdAndUpdate(id, {title: title, body: body, raw: raw});
+        return this.postModel.findByIdAndUpdate(id, {title: title, body: body, raw: raw, lastUpdated: Date.now()});
     }
 
     async getPublicPosts(username: string, skip: number, limit: number) {

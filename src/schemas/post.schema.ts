@@ -27,6 +27,9 @@ export class Post {
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, required: true })
   createdBy: User;
+
+  @Prop({ required: true, default: null })
+  lastUpdated: Date;
 }
 
 export type PostDocument = Post & Document;
