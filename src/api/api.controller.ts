@@ -57,8 +57,8 @@ export class ApiController {
 
   @Patch('update/:id')
   update(@Param('id') id: string, @Body() _body) {
-    const { postData } = _body;
-    return this.apiService.update(id, postData);
+    const { postData, isPrivate, disableComments } = _body;
+    return this.apiService.update(id, postData, isPrivate, disableComments);
   }
 
   @Get('getPrivatePosts')

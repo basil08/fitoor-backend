@@ -64,11 +64,11 @@ export class ApiService {
         return deleted;
     }
 
-    async update(id: string, raw: any) {
+    async update(id: string, raw: any, isPrivate: boolean, disableComments: boolean) {
         const headingIndex = raw.indexOf('\n');
         const title = raw.slice(0, headingIndex);
         const body = raw.slice(headingIndex + 1);
-        return this.postModel.findByIdAndUpdate(id, {title: title, body: body, raw: raw, lastUpdated: Date.now()});
+        return this.postModel.findByIdAndUpdate(id, { title: title, body: body, raw: raw, isPrivate: isPrivate, commentsEnabled: !disableComments, lastUpdated: Date.now() });
     }
 
     async getPublicPosts(username: string, skip: number, limit: number) {
