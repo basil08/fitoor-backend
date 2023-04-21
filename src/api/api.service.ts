@@ -29,7 +29,8 @@ export class ApiService {
             isPrivate: isPrivate,
             commentsCount: commentsCount,
             timestamp: Date.now(),
-            createdBy: createdBy
+            createdBy: createdBy,
+            lastUpdated: Date.now()
         });
 
         return newPostObject.save()
